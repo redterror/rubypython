@@ -81,9 +81,6 @@ class RubyPython::Interpreter
       attach_function :PyList_SetItem, [:pointer, :int, :pointer], :void
 
       # Integer Methods
-      attach_function :PyInt_AsLong, [:pointer], :long
-      attach_function :PyInt_FromLong, [:long], :pointer
-
       attach_function :PyLong_AsLong, [:pointer], :long
       attach_function :PyLong_FromLongLong, [:long_long], :pointer
 
@@ -116,7 +113,7 @@ class RubyPython::Interpreter
       attach_function :Py_DecRef, [:pointer], :void
 
       # Type Objects
-      # attach_variable :PyBaseObject_Type, self::DummyStruct.by_value # built-in 'object' 
+      # attach_variable :PyBaseObject_Type, self::DummyStruct.by_value # built-in 'object'
       # attach_variable :PyBaseString_Type, self::DummyStruct.by_value
       # attach_variable :PyBool_Type, self::DummyStruct.by_value
       # attach_variable :PyBuffer_Type, self::DummyStruct.by_value
@@ -166,7 +163,7 @@ class RubyPython::Interpreter
       # attach_variable :PySlice_Type, self::DummyStruct.by_value
       # attach_variable :PyStaticMethod_Type, self::DummyStruct.by_value
       attach_variable :PyString_Type, self::DummyStruct.by_value
-      # attach_variable :PySuper_Type, self::DummyStruct.by_value # built-in 'super' 
+      # attach_variable :PySuper_Type, self::DummyStruct.by_value # built-in 'super'
       # attach_variable :PyTraceBack_Type, self::DummyStruct.by_value
       attach_variable :PyTuple_Type, self::DummyStruct.by_value
       attach_variable :PyType_Type, self::DummyStruct.by_value

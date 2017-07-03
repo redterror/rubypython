@@ -80,17 +80,9 @@ module RubyPython::Conversion
     pDict
   end
 
-  # Convert a Ruby Fixnum to a \Python Int. Returns an FFI::Pointer to a
+  # Convert a Ruby Integer to a \Python Int. Returns an FFI::Pointer to a
   # PyIntObject.
-  def self.rtopFixnum(rNum)
-    num = RubyPython::Python.PyInt_FromLong(rNum)
-    raise ConversionError.new "Failed to convert #{rNum}" if num.null?
-    num
-  end
-
-  # Convert a Ruby Bignum to a \Python Long. Returns an FFI::Pointer to a
-  # PyLongObject.
-  def self.rtopBigNum(rNum)
+  def self.rtopInteger(rNum)
     num = RubyPython::Python.PyLong_FromLongLong(rNum)
     raise ConversionError.new "Failed to convert #{rNum}" if num.null?
     num
@@ -174,10 +166,8 @@ module RubyPython::Conversion
       end
     when Hash
       rtopHash rObj
-    when Fixnum
-      rtopFixnum rObj
-    when Bignum
-      rtopBignum rObj
+    when Integer
+      rtopInteger rObj
     when Float
       rtopFloat rObj
     when true
@@ -238,11 +228,6 @@ module RubyPython::Conversion
     end
 
     rb_array
-  end
-
-  # Convert an FFI::Pointer to a \Python Int (PyIntObject) to a Ruby Fixnum.
-  def self.ptorInt(pNum)
-    RubyPython::Python.PyInt_AsLong(pNum)
   end
 
   # Convert an FFI::Pointer to a \Python Long (PyLongObject) to a Ruby
@@ -307,7 +292,7 @@ module RubyPython::Conversion
     elsif RubyPython::Macros.PyObject_TypeCheck(pObj, RubyPython::Python.PyList_Type.to_ptr) != 0
       ptorList pObj
     elsif RubyPython::Macros.PyObject_TypeCheck(pObj, RubyPython::Python.PyInt_Type.to_ptr) != 0
-      ptorInt pObj
+      ptorLong pObj
     elsif RubyPython::Macros.PyObject_TypeCheck(pObj, RubyPython::Python.PyLong_Type.to_ptr) != 0
       ptorLong pObj
     elsif RubyPython::Macros.PyObject_TypeCheck(pObj, RubyPython::Python.PyFloat_Type.to_ptr) != 0
