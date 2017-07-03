@@ -28,7 +28,7 @@ module RubyPython
   #     sys.version { |v| v.rubify.split(' ') }
   #   end
   #   # => [ "2.6.1", … ]
-  #   
+  #
   # == Passing Procs and Methods to \Python Methods
   # RubyPython supports passing Proc and Method objects to \Python methods.
   # The Proc or Method object must be passed explicitly. As seen above,
@@ -111,8 +111,8 @@ module RubyPython
     # check whether it will respond to a method call. This should not return
     # false positives but it may return false negatives. The built-in Ruby
     # respond_to? method has been aliased to is_real_method?.
-    def respond_to?(mname)
-      return true if is_real_method?(mname)
+    def respond_to?(mname, include_all=false)
+      return true if is_real_method?(mname, include_all)
       mname = mname.to_s
       return true if mname =~ /=$/
       @pObject.hasAttr(mname)
