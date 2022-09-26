@@ -49,7 +49,7 @@ class RubyPython::Interpreter
     end
 
     rc, @python     = runpy "import sys; print sys.executable"
-    if rc.exitstatus.nonzero?
+    if rc.exitstatus&.nonzero?
       raise RubyPython::InvalidInterpreter, "An invalid interpreter was specified."
     end
     rc, @version    = runpy "import sys; print '%d.%d' % sys.version_info[:2]"
